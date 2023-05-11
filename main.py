@@ -27,23 +27,23 @@ def process_frame(frame):
     caption = generate_caption(pil_image)
 
     current_time = time.time() # track current time for processing time comparison
-    if current_time - last_generation_time >= 3:  # generate response every 2 seconds
-        if caption and caption not in previous_captions:
-            previous_captions.append(caption) # add caption to previous captions list
-            if len(previous_captions) > 20: # limit previous captions list to 10 items
-                previous_captions.pop(0)
+    # if current_time - last_generation_time >= 3:  # generate response every 2 seconds
+    if caption and caption not in previous_captions:
+        previous_captions.append(caption) # add caption to previous captions list
+        if len(previous_captions) > 20: # limit previous captions list to 10 items
+            previous_captions.pop(0)
 
-            response = generate_response(previous_caption + " " + caption, previous_response, previous_responses)  # generate response for caption and previous response
+        response = generate_response(previous_caption + " " + caption, previous_response, previous_responses)  # generate response for caption and previous response
 
-            while response in previous_responses: # ensure response is unique
-                response = generate_response(previous_caption + " " + caption, previous_response)
+        while response in previous_responses: # ensure response is unique
+            response = generate_response(previous_caption + " " + caption, previous_response)
 
-            previous_responses.append(response) # add response to previous responses list
-            if len(previous_responses) > 20:
-                previous_responses.pop(0)
+        previous_responses.append(response) # add response to previous responses list
+        if len(previous_responses) > 20:
+            previous_responses.pop(0)
 
-            print(response) # print response to console
-        last_generation_time = current_time # update last generation time
+        print(response) # print response to console
+    last_generation_time = current_time # update last generation time
 
 
 def display_frame(frame):
@@ -72,11 +72,15 @@ def main_loop():
             print("Error capturing frame, exiting.")
             break
 
+        """
         current_time = time.time()
         if current_time - last_process_time >= 1:
+        """
+        if cv2.waitKey(1) == ord('p'):
+            print("\n[LOG] STARTED PROCESSING IMAGE")
             t = threading.Thread(target=process_frame, args=(frame,))
             t.start()
-            last_process_time = current_time
+            # last_process_time = current_time
 
         display_frame(frame)
 

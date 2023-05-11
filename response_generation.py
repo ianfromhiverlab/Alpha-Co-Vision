@@ -32,6 +32,11 @@ def generate_response(caption, previous_response, previous_responses):
     if previous_response:
         prompt += f"\n\nPrevious response = '{previous_response}'"
 
+    # TODO: reserach cohere prompt max length
+
+    print("[LOG] CAPTION: " + caption)
+    print("[LOG] GENERATING RESPONSE\n")
+
     response = co.generate(
         model="command-xlarge-beta",
         prompt=prompt,
