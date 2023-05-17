@@ -34,7 +34,7 @@ This was hacked in a couple of nights and maybe optimized incorrectly/poorly. M
 
 You can install the required packages using the following command:
 
-`pip install cohere opencv-python Pillow torch transformers openai`
+`pip install cohere opencv-python Pillow torch transformers openai scikit-learn`
 
 # Project Structure, Usage, and Customization
 
